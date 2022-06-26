@@ -1,0 +1,179 @@
+<html>
+<head>
+<script>
+		window.addEventListener('DOMContentLoaded', ()=>{
+
+			let arr = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+
+//--------------blur event------------------------------------------------
+
+		const numberid=document.querySelector("#number");
+		numberid.addEventListener('blur',()=>{
+		
+		let input=document.querySelector("#number").value;
+		let output= getArray(input);
+		if(output.result){
+		console.log("Number found")
+		document.querySelector("#edit").disabled=false;
+		document.querySelector("#delete").disabled=false;
+		document.querySelector("#add").disabled=true;
+		document.querySelector("#num").innerText="Number found";
+		}
+		else{
+		document.querySelector("#num").innerText="Number not found";
+		document.querySelector("#add").disabled=false;
+		}
+		
+		});
+
+//--------------click add event------------------------------------------------
+
+		const addid=document.querySelector("#add");
+		addid.addEventListener('click',()=>{
+		let input= document.querySelector("#number").value;
+		let output= getArray(input);
+		
+		if(output.result){
+		console.log("Number found cant add");
+		document.querySelector("#add").disabled=true;
+		document.querySelector("#number").innerText="Number found cant add";
+		}
+		
+		else{
+		console.log("Added Sucessful");
+		arr.push(parseInt(document.querySelector("#number").value));
+		document.querySelector("#edit").disabled=true;
+		document.querySelector("#delete").disabled=true;
+		document.querySelector("#add").disabled=true;
+	
+		document.querySelector("#num").innerText="Added Sucessful";
+		}
+		});
+		
+//--------------click edit event------------------------------------------------
+
+		
+	
+	
+		let input = document.querySelector("#edit");
+            edit.addEventListener('click', () => {
+                let input = document.querySelector("#number").value;
+
+                let output = getArray(document.querySelector("#number").value);
+                let newnum = prompt("Enter new number");
+                if (output.result) {
+				
+					if(document.querySelector("#num").value!=parseInt(newnum));{
+                   arr.push(newnum);
+				   deleteno(input);
+				   document.querySelector("#number").value=newnum;
+				   console.log("Edit sucessfull");
+				   document.querySelector("#edit").disabled = false;
+                    document.querySelector("#num").innerText = "Edit Sucessful";
+                    console.log("new number: " + newnum);
+					
+				}
+
+                }
+                else {
+                    console.log("Number Notfound can't edit");
+                }
+
+            });
+		
+	
+//--------------click delete event------------------------------------------------
+
+			
+	
+		let deleteNum = document.querySelector("#delete");
+            deleteNum.addEventListener('click', () => {
+                console.log("delete number");
+				let input = document.querySelector("#number").value;
+				let output = getArray(input);
+				if(output.result){
+				deleteno(input);
+				console.log(arr);
+				document.querySelector("#num").innerText="Number deleted";
+				console.log("Number deleted");
+                document.querySelector("#edit").disabled = true;
+                document.querySelector("#delete").disabled = true;
+                document.querySelector("#add").disabled = true;
+			
+			}
+				
+            });
+		
+//-------------view all click event------------------------------------------------
+
+	
+			
+		const viewallid=document.querySelector("#viewall");
+		viewallid.addEventListener('click',()=>{
+			let msg=""
+		for(let i=0;i<arr.length;i++){
+				msg+=arr[i]+"  ";
+		}
+		document.querySelector("#num1").innerText=msg;
+		
+		  });
+		
+//--------------view odd click event------------------------------------------------
+
+		
+		  
+	const showoddpositions=document.querySelector("#showoddpositions");
+		  showoddpositions.addEventListener('click',()=>{
+			let msg=""
+		for(let i=0;i<arr.length;i++){
+			if(i%2!=0){
+				msg+=arr[i]+"  ";
+			}
+			}
+		document.querySelector("#num1").innerText=msg;
+		
+		  });
+		  
+		 
+		
+            function getArray(num) {
+
+
+                let output = { result: false, arr: [] };
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] == num) {
+                        console.log("found");
+                        output.result = true;
+                        output.arr2 = arr[i];
+                        break;
+                    }
+                } return output;
+            }
+	
+			function deleteno(input){
+				
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] == input) {
+                        arr.splice(i, 1);
+                        break;
+                    }
+                }
+               
+		}
+	
+});
+
+</script>
+</head>
+<body>
+	<input type="number" id="number" placeholder="number"/><span id="num" >  x  </span>
+	<Br/><input type="button" disabled id="add" value="add"/>
+	<input type="button" disabled id="edit" value="edit"/>
+	<input type="button" disabled id="delete" value="delete"/>
+	<input type="button" 		  id="viewall" value="viewall"/>
+	<input type="button"  id="showoddpositions" value="showoddpositions"/>
+	<br><span id="num1" >  y  </span>
+
+</body>
+
+</html>
